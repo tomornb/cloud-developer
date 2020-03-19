@@ -16,7 +16,7 @@ spec:
         api: external
     spec:
       containers:
-      - image: tomornb/udacity-frontend:local
+      - image: tomornb/udacity-frontend
         name: frontend
         imagePullPolicy: Always
         ports:
