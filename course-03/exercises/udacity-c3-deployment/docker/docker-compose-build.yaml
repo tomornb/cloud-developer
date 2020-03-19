@@ -15,4 +15,4 @@ services:
   frontend:
     build:
       context: ../../udacity-c3-frontend
-    image: tomornb/udacity-frontend:local
+    image: tomornb/udacity-frontend
