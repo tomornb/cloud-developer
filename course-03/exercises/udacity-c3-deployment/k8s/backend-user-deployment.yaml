@@ -1,33 +1,36 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    service: backend-user
+   app: backend-user 
   name: backend-user
 spec:
-  replicas: 2
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend-user
   template:
     metadata:
       labels:
-        service: backend-user
+        app: backend-user
     spec:
       containers:
-      - image: scheele/udacity-restapi-user
-        name: backend-user 
-        imagePullPolicy: Always  
+      - image: tomornb/udacity-restapi-user
+        name: backend-user
+        imagePullPolicy: Always
         resources:
           requests:
-            memory: "64Mi"
-            cpu: "250m"
+            memory: "8Mi"
+            cpu: "5m"
           limits:
-            memory: "1024Mi"
-            cpu: "500m"      
+            memory: "16Mi"
+            cpu: "10m"
         env:
         - name: URL
           valueFrom:
             configMapKeyRef:
               name: env-config
-              key: URL 
+              key: URL
         - name: JWT_SECRET
           valueFrom:
             configMapKeyRef:
@@ -54,5 +57,3 @@ spec:
               name: env-secret
               key: POSTGRESS_USERNAME
       restartPolicy: Always
-
-

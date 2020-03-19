@@ -4,16 +4,16 @@ metadata:
   name: pod-example
 spec:
   containers:
-  - image: scheele/reverseproxy
+  - image: tomornb/reverseproxy
     name: reverseproxy
-    imagePullPolicy: Always          
+    imagePullPolicy: Always
     resources:
-      requests:
-        memory: "64Mi"
-        cpu: "250m"
+      #requests:
+      #  memory: "64Mi"
+      #  cpu: "50m"
       limits:
         memory: "1024Mi"
-        cpu: "500m"       
+        cpu: "500m"
     ports:
     - containerPort: 8080
   restartPolicy: Always

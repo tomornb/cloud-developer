@@ -1,27 +1,30 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    service: backend-feed
+    app: backend-feed 
   name: backend-feed
 spec:
-  replicas: 3
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend-feed
   template:
     metadata:
       labels:
-        service: backend-feed
+        app: backend-feed
     spec:
       containers:
-      - image: scheele/udacity-restapi-feed
+      - image: tomornb/udacity-restapi-feed
         name: backend-feed
-        imagePullPolicy: Always  
+        imagePullPolicy: Always
         resources:
           requests:
-            memory: "64Mi"
-            cpu: "250m"
+            memory: "8Mi"
+            cpu: "5m"
           limits:
-            memory: "1024Mi"
-            cpu: "500m"                  
+            memory: "16Mi"
+            cpu: "10m"
         env:
         - name: URL
           valueFrom:
@@ -67,13 +70,13 @@ spec:
           valueFrom:
             secretKeyRef:
               name: env-secret
-              key: POSTGRESS_USERNAME      
+              key: POSTGRESS_USERNAME
         volumeMounts:
         - name: aws-secret
           mountPath: "/root/.aws/"
-          readOnly: true        
+          readOnly: true
       restartPolicy: Always
       volumes:
       - name: aws-secret
         secret:
-          secretName: aws-secret       
+          secretName: aws-secret
